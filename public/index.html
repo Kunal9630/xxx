@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pet Care</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    
+        <script>
+            $(document).ready(function()
+            {
+                $("#txtEmail").blur(function()
+                {
+                    var email= $("#txtEmail").val();
+                    
+                    var infoObj={
+                        type:"get",
+                        url:"/checkEmailInTable",
+                        data:{
+                            emailForServer:email
+                        }
+                    }
+    
+                    //AJAX Request fired
+                    $.ajax(infoObj).done(function(msg){
+                        $("#resp").html(msg);
+                    }).fail(function(err){
+                        alert(err);
+                    })
+                });
+
+                $("#signup").click(function()
+                {
+                    var x= $("#txtEmail").val();
+                    var y= $("#txtPwd").val();
+                    var z= $("#utype").val();
+                    
+                    var infoObj={
+                        type:"get",
+                        url:"/signup-process-post",
+                        data:{
+                            emailForServer:x,
+                            pwdForServer:y,
+                            typeForServer:z
+                        }
+                    }
+    
+                    //AJAX Request fired
+                    $.ajax(infoObj).done(function(msg){
+                        $("#signup_resp").html(msg);
+                    }).fail(function(err){
+                        alert(err);
+                    })   
+                })
+
+                $("#login").click(function()
+                {
+                    var x= $("#loginEmail1").val();
+                    var y= $("#loginPassword1").val();
+                    
+                    var infoObj={
+                        type:"get",
+                        url:"/checkUtypeInTable",
+                        data:{
+                            emailForServer:x,
+                            pwdForServer:y
+                        }
+                    }
+    
+                    //AJAX Request fired
+                    $.ajax(infoObj).done(function(msg){
+
+                        localStorage.setItem("activeUser",x);//***************
+
+                        if(msg=="Client")
+                            location.href="dash-client.html";
+                            else if(msg=="Care Taker")
+                            location.href="dash-caretaker.html";
+
+                        else
+
+                        $("#login_resp").html(msg);
+                    }).fail(function(err){
+                        $("#login_resp").html("Invalid Email Id or Password");
+                    })
+                });
+
+            });
+        </script>
+</head>
+
+<body>
+    <nav class="navbar ">
+        <div class="container-fluid col-md-3 offset-md-1" ">
+            <a class="navbar-brand" href="#">
+                <div style="float: left;">
+                    <img src="pics/pet.png" alt="Logo" width="45px" height="45px"
+                        class="d-inline-block align-text-center ">
+                </div>
+                <div style="float: left; margin-left: 20px;">
+                    <span id="title-text">Pet Care</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3 d-flex justify-content-evenly">
+            <div>
+                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
+                    data-bs-target="#loginModal">Login</button>
+                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
+                    data-bs-target="#signupModal">SignUp</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="masthead" style="background-image: url('pics/iot-changes-life-with-pets-main.jpg');">
+
+        <div class="color-overlay d-flex flex-column justify-content-center align-items-center">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <center>
+                    <span id="title-text">Our Services</span>
+                </center>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-3">
+        <div class="row" id=row>
+            <div class="col-md-4">
+                <div class="card" id="card">
+                    <div class="container">
+                        <img src="pics/resume.png" class="card-img-top mt-3" id="img1" alt="Profile">
+                    </div>
+                    <div class="card-body">
+                        <center>
+                            <a href="#" class="btn btn-outline-dark" id="btn">Details</a>
+                        </center>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card" id="card">
+                    <div class="container">
+                        <img src="pics/gear.png" class="card-img-top mt-3" id="img2" alt="Profile">
+                    </div>
+                    <div class="card-body">
+                        <center>
+                            <a href="#" class="btn btn-outline-dark" id="btn">Settings</a>
+                        </center>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card" id="card">
+                    <div class="container">
+                        <img src="pics/logout.png" class="card-img-top mt-3" id="img3" alt="Profile">
+                    </div>
+                    <div class="card-body">
+                        <center>
+                            <a href="#" class="btn btn-outline-dark" id="btn">Logout</a>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="row">
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #e85174;">
+                        <h1 class="modal-title fs-5" id="loginModalLabel" ;">Login</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="user"></div>
+                        <form>
+                            <div class="mb-3">
+                                <label for="loginEmail1" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="loginEmail1" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="loginPassword1">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-outline-dark" id="login">Login</button>
+                    </div>
+                    <div id="login_resp">*</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #e85174;">
+                        <h1 class="modal-title fs-5" id="signupModalLabel" ;">SignUp</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="user"></div>
+                        <form>
+                            <div class="mb-3">
+                                <label for="emailid" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="txtEmail" name="txtEmail" aria-describedby="emailHelp">
+                                <div id="resp"></div>
+                                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                            </div>
+                            <div class="mb-3">
+                                <label for="pwd" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="txtPwd" name="txtPwd">
+                            </div>
+                            <label for="Utype" class="form-label" name="utype">User Type</label>
+                            <select class="form-select" aria-label="Default select example" id="utype" name="utype">
+                                <option selected>Select</option>
+                                <option value="Client">Client</option>
+                                <option value="Care Taker">Care Taker</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-outline-dark" id="signup">SignUp</button>
+                    </div>
+                    <div id="signup_resp"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

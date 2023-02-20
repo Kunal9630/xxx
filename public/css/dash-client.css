@@ -1,0 +1,34 @@
+.navbar{
+    background-color:#e85174 ;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#title{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#img1{
+    height: 100px;
+    width: 100px;
+    display: flex;
+    margin: auto;
+    border-radius: 50%;
+    border: 3px black solid;
+}
+
+#img2{
+    height: 100px;
+    width: 100px;
+    display: flex;
+    margin: auto;
+    background-size: contain;
+}
+
+#card{
+    border: 2px black solid;
+}
+
+#btn{
+    font-weight: bold;
+}

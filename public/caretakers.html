@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/caretakers.css">
+    <title>Care Takers</title>
+    <script src="js/angular.min.js"></script>
+    <script>
+        var module=angular.module("myModule",[]);
+        module.controller("myController",function($scope,$http)
+        {
+            $scope.jsonUsersAry;
+            $scope.fetchAndShow=function()
+            {
+                $http.get("/fetch-all-caretakers").then(fxOk,fxNotOk);
+                function fxOk(response)
+                {
+                   // alert(JSON.stringify(response.data));
+                   $scope.jsonUsersAry=response.data;
+                }
+
+                function fxNotOk(response)
+                {
+                    alert(response.data);
+                }
+            }
+
+            $scope.deleteUser=function(email)
+            {
+                if(confirm("Are u sure??")==false)
+                {
+                    return;
+                }
+                $http.get("/delete-caretakers-angular?xEmail="+email).then(fxOk,fxNotOk);
+                function fxOk(response)
+                {
+                    alert("CareTaker Deleted Successfully.....");
+                    $scope.fetchAndShow();
+                }
+                function fxNotOk(response)
+                {
+                    alert(response.data);
+                }
+            }
+        })
+    </script>
+  </head>
+  <body ng-app="myModule" ng-controller="myController">
+    <nav class="navbar">
+        <div class="container-fluid container justify-content-center">
+            <a class="navbar-brand" href="">
+                <span id="title">CareTakers</span>
+            </a>
+        </div>
+    </nav>
+   
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-4">
+                <center>
+                    <input type="button" value="Show All CareTakers" class="btn btn-outline-dark" ng-click="fetchAndShow()">
+                </center>
+            </div>
+
+            <div class="col-md-12 mt-4">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Email ID</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Mobile</th>
+                          <th scope="col">Address</th>
+                          <th scope="col">Website</th>
+                          <th scope="col">City</th>
+                          <th scope="col">State</th>
+                          <th scope="col">Pin Code</th>
+                          <th scope="col">Pets</th>
+                          <th scope="col">ID Pic</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="obj in jsonUsersAry">
+                            <td>{{$index}}</td>
+                            <td>{{obj.email}}</td>
+                            <td>{{obj.name}}</td>
+                            <td>{{obj.mobile}}</td>
+                            <td>{{obj.address}}</td>
+                            <td>{{obj.website}}</td>
+                            <td>{{obj.city}}</td>
+                            <td>{{obj.state}}</td>
+                            <td>{{obj.pin}}</td>
+                            <td>{{obj.selpets}}</td>
+                            <td>{{obj.ppic}}</td>
+                            <td>
+                                <input type="button" value="Delete" id="delete" ng-click="deleteUser(obj.email)" class="btn btn-outline-dark">
+                            </td>
+                        </tr>
+                      </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+.navbar{
+    background-color:#e85174 ;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#title{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#preview{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+#savebtn{
+    display: flex;
+    justify-content:center;
+    gap: 40px;
+}

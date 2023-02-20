@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CareTaker Profile</title>
+    <link rel="stylesheet" href="css/profile-caretaker.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+        <script>
+            function img_pathUrl(input) {
+                document.getElementById("prev").src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
+            }
+ 
+            
+            function doSelect()
+            {
+                var pets ="";
+                var lstAry = document.querySelector("#petscare");
+
+                for (var i = 0; i < lstAry.length; i++) 
+                {
+                    if (lstAry[i].selected) 
+                    {
+                        pets += lstAry[i].text + ",";
+                    }
+                }
+
+                pets = pets.substr(0, pets.length - 1);
+
+                document.querySelector("#selpets").value =pets;
+            }
+
+            $(document).ready(function () {
+            $("#btnSearch").click(function () {
+                var email = $("#txtEmail").val();
+
+                var infoObj = {
+                    type: "get",
+                    url: "/fetchFromTableCareTaker",
+                    data: {
+                        emailForServer: email
+                    }
+                }
+
+                //AJAX Request fired
+                $.ajax(infoObj).done(function (jsonArray) {
+                    //alert(JSON.stringify(jsonArray)+"  Length="+jsonArray.length)
+
+                    $("#txtEmail").val(jsonArray[0].email)
+                    $("#name").val(jsonArray[0].name)
+                    $("#mobile").val(jsonArray[0].mobile)
+                    $("#inputAddress").val(jsonArray[0].address)
+                    $("#website").val(jsonArray[0].website)
+                    $("#inputCity").val(jsonArray[0].city)
+                    $("#inputState").val(jsonArray[0].state)
+                    $("#inputZip").val(jsonArray[0].pin)
+                    $("#selpets").val(jsonArray[0].selpets)
+                    $("#hdn").val(jsonArray[0].ppic)
+                    $("#prev").prop("src", "uploads/" + jsonArray[0].ppic)
+
+                }).fail(function (err) {
+                    alert(err);
+                })
+            })
+        })
+        </script>
+</head>
+
+<body>
+    <nav class="navbar ">
+        <div class="container justify-content-center">
+            <span id="title">CareTaker Profile Details</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <form class="row g-3 mt-3" method="post" enctype="multipart/form-data">
+            <input type="hidden" id="hdn" name="hdn">
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Email</label>
+                <input type="email" class="form-control" id="txtEmail" name="txtEmail">
+            </div>
+            <div class="col-md-6 mt-5">
+                <input type="button" class="btn btn-outline-dark" id="btnSearch" value="Search">
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputname" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <div class="col-md-6">
+                <label for="mobile" class="form-label">Mobile Number</label>
+                <input type="text" class="form-control" id="mobile" name="mobile">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress" class="form-label">Address</label>
+                <input type="text" class="form-control" id="inputAddress" name="address">
+            </div>
+
+            <div class="col-12">
+                <label for="inputWebsite" class="form-label">Website (Optional)</label>
+                <input type="text" class="form-control" id="website" name="website" placeholder="www.">
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputCity" class="form-label">City</label>
+                <input type="text" class="form-control" id="inputCity" name="city">
+            </div>
+            <div class="col-md-4">
+                <label for="inputState" class="form-label">State</label>
+                <select id="inputState" class="form-select" name="state">
+                    <option selected>Select</option>
+                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                    <option value="Daman and Diu">Daman and Diu</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Lakshadweep">Lakshadweep</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Orissa">Orissa</option>
+                    <option value="Pondicherry">Pondicherry</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttaranchal">Uttaranchal</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="West Bengal">West Bengal</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="inputZip" class="form-label">Zip</label>
+                <input type="text" class="form-control" id="inputZip" name="zip">
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputpets" class="form-label">Pets that can be taken care of</label>
+                <select name="petscare" id="petscare" class="form-select" multiple size="3" onchange="doSelect();">
+                    <option >Select</option>
+                    <option value="Dog">Dog</option>
+                    <option value="Cat">Cat</option>
+                    <option value="Rabbit">Rabbit</option>
+                    <option value="Cow">Cow</option>
+                    <option value="Parrot">Parrot</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="selpets" class="form-label">Selected Pets</label>
+                <input type="text" class="form-control" id="selpets" name="selpets">
+            </div>
+
+            <div class="col-md-6">
+                <label for="id_pic" class="form-label">Upload Adhaar Card Pic</label>
+                <input type="file" class="form-control" id="idpic" name="idpic" onchange="img_pathUrl(this);">
+            </div>
+
+            <div class="col-md-6" id="preview">
+                <div>
+                    <img src="" alt="" id="prev" width="100" class="form-control" height="100">
+                </div>
+            </div>
+            <div class="col-md-12" id="savebtn">
+                <div>
+                    <input type="submit" class="btn btn-outline-dark" value="Save" id="savebtn" formaction="/caretaker-profile-post">
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-outline-dark" value="Update" id="updatebtn" formaction="/caretaker-update-post">
+                </div>
+            </div>
+            <div class="col-md-12"></div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+.navbar{
+    background-color:#e85174 ;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#title{
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+}
+
+.btn{
+    font-weight: bold;
+}

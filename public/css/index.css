@@ -1,0 +1,117 @@
+body{
+    /* background-image: linear-gradient(135deg, #FFFEFF 1%, #e85174 100%); */
+    /* background-color: #e85174; */
+    /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    overflow-x: auto;
+}
+
+#title-text{
+    font-size: 30px;
+}
+
+.navbar{
+    /* background-color:#e85174 ; */
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.title-nav{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.title-nav:hover{
+    color: white;
+}
+
+#user{
+    height: 80px;
+    width: 80px;
+    background-image: url(../pics/userlogin.png);
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    margin: auto;
+    border: 2px #e85174 solid;
+}
+
+
+#resp{
+    color: #e85174;
+}
+
+#signup_resp{
+    display: flex;
+    font-weight: bold;
+    justify-content: center;
+    /* align-content: center; */
+    color: #e85174;
+}
+
+#login_resp{
+    display: flex;
+    font-weight: bold;
+    justify-content: center;
+    /* align-content: center; */
+    color: #e85174;
+}
+
+.masthead {
+    background-size: cover;
+    min-height: 100vh;
+    position: relative;
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0,0,0,.5);
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+.color-overlay {
+    position: absolute;
+    background-color: rgba(0,0,0,0.3);
+    height: 100%;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .masthead {
+        min-height: 30vh;font-size: 25px;
+    }
+    h1 {
+        font-size: calc(1.525rem + 3.3vw);
+    }
+}
+
+#img1{
+    height: 100px;
+    width: 100px;
+    display: flex;
+    margin: auto;
+    /* border-radius: 50%; */
+    /* border: 3px black solid;  */
+}
+
+#img2{
+    height: 100px;
+    width: 100px;
+    display: flex;
+    margin: auto;
+    background-size: contain;
+}
+
+#img3{
+    height: 100px;
+    width: 100px;
+    display: flex;
+    margin: auto;
+    border-radius: 50%;
+    border: 3px black solid;
+}
+
+#card{
+    border: 2px black solid;
+}
